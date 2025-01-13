@@ -30,7 +30,7 @@ const UserProfile = ({ user }: UserProfileProps) => {
               <Button asChild className="rounded-full flex gap-10">
                 <Link href={"/pricing"}>
                   <span className="uppercase font-semibold tracking-wide">
-                    Subscribe
+                    Subscribe!
                   </span>
                 </Link>
               </Button>
