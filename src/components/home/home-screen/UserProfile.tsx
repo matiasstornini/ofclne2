@@ -1,12 +1,14 @@
-// components/UserProfile.tsx
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import CoverImage from "./CoverImage";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { UserProfileProps } from "@/types"; // Asegúrate de importar correctamente el tipo de los props.
+import { UserProfileProps } from "@/types";
 
-const UserProfile = ({ user }: UserProfileProps) => {
+interface UserProfilePropsWithOwnership extends UserProfileProps {
+  isOwner: boolean;
+}
+
+const UserProfile = ({ user, isOwner }: UserProfilePropsWithOwnership) => {
   if (!user) {
     return <p>No user found</p>;
   }
@@ -26,22 +28,34 @@ const UserProfile = ({ user }: UserProfileProps) => {
           </Avatar>
 
           <div className="flex">
-            {!user.isSubscribed && (
+            {isOwner ? (
               <Button asChild className="rounded-full flex gap-10">
-                <Link href={"/pricing"}>
+                <Link href="/update-profile">
                   <span className="uppercase font-semibold tracking-wide">
-                    Subscribe!
+                    Edit Profile
                   </span>
                 </Link>
               </Button>
-            )}
+            ) : (
+              <>
+                {!user.isSubscribed && (
+                  <Button asChild className="rounded-full flex gap-10">
+                    <Link href="/pricing">
+                      <span className="uppercase font-semibold tracking-wide">
+                        Subscribe!
+                      </span>
+                    </Link>
+                  </Button>
+                )}
 
-            {user.isSubscribed && (
-              <Button className="rounded-full flex gap-10" variant={"outline"}>
-                <span className="uppercase font-semibold tracking-wide">
-                  Subscribed
-                </span>
-              </Button>
+                {user.isSubscribed && (
+                  <Button className="rounded-full flex gap-10" variant="outline">
+                    <span className="uppercase font-semibold tracking-wide">
+                      Subscribed
+                    </span>
+                  </Button>
+                )}
+              </>
             )}
           </div>
         </div>
@@ -49,7 +63,9 @@ const UserProfile = ({ user }: UserProfileProps) => {
         <div className="flex flex-col mt-4">
           <p className="text-lg font-semibold">{user.name}</p>
           <p className="text-sm mt-2 md:text-md">
-            Discover daily tips and tricks for horse health and care, along with insights into my personal routine with my horses. Subscribe now to gain access to exclusive content and become part of the community.
+            Discover daily tips and tricks for horse health and care, along with
+            insights into my personal routine with my horses. Subscribe now to
+            gain access to exclusive content and become part of the community.
           </p>
         </div>
       </div>

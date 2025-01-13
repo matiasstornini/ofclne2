@@ -15,6 +15,7 @@ import { useToast } from "@/components/ui/use-toast";
 const UpdateProfileForm = () => {
 	const [mediaUrl, setMediaUrl] = useState("");
 	const [name, setName] = useState("");
+	const [description, setDescription] = useState("");
 	const [email, setEmail] = useState("");
 	const [profileImage, setProfileImage] = useState("");
 
@@ -79,6 +80,13 @@ const UpdateProfileForm = () => {
 							value={name}
 							className='my-2'
 							onChange={(e) => setName(e.target.value)}
+						/>
+						<Label>Description</Label>
+						<Input
+							placeholder='Enter your description'
+							value={description}
+							className='my-2'
+							onChange={(e) => setDescription(e.target.value)}
 						/>
 
 						<Label>Email</Label>
