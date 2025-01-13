@@ -16,23 +16,23 @@ import { getUserProfileAction } from "@/app/update-profile/actions";
 
 const SIDEBAR_LINKS = [
 	{
-		icon: Home,
-		label: "Home",
-		href: "/",
+	  icon: Home,
+	  label: "Home",
+	  href: "/",
 	},
 	{
-		icon: Shirt,
-		label: "Merch",
-		href: "/merch",
+	  icon: Shirt,
+	  label: "Merch",
+	  href: "/merch",
 	},
-];
-
-const Sidebar = async () => {
+  ];
+  
+  const Sidebar = async () => {
 	const { getUser } = getKindeServerSession();
 	const user = await getUser();
-
+  
 	const userProfile = await getUserProfileAction();
-
+  
 	const isAdmin = process.env.ADMIN_EMAIL === user?.email;
 
 	return (
@@ -40,12 +40,17 @@ const Sidebar = async () => {
 			className='flex lg:w-1/5 flex-col gap-3 px-2 border-r sticky
     left-0 top-0 h-screen'
 		>
-			<Link href='/update-profile' className='max-w-fit'>
-				<Avatar className='mt-4 cursor-pointer'>
-					<AvatarImage src={userProfile?.image || "/user-placeholder.png"} className='object-cover' />
-					<AvatarFallback>CN</AvatarFallback>
+			{/* Cambia el enlace para usar el slug dinámicamente */}
+			<Link href={`/${userProfile?.slug}`} className="max-w-fit">
+				<Avatar className="mt-4 cursor-pointer">
+				<AvatarImage
+					src={userProfile?.image || "/user-placeholder.png"}
+					className="object-cover"
+				/>
+				<AvatarFallback>CN</AvatarFallback>
 				</Avatar>
 			</Link>
+
 
 			<nav className='flex flex-col gap-3'>
 				{SIDEBAR_LINKS.map((link) => (
@@ -68,7 +73,13 @@ const Sidebar = async () => {
 						<span className='hidden lg:block'>Dashboard</span>
 					</Link>
 				)}
-
+					<Link
+						href={"/wallet"}
+						className='flex w-12 lg:w-full items-center gap-2 hover:bg-primary-foreground font-bold hover:text-primary px-2 py-1 rounded-full justify-center lg:justify-normal'
+					>
+						<LayoutDashboard className='w-6 h-6' />
+						<span className='hidden lg:block'>Wallet</span>
+					</Link>
 				<DropdownMenu>
 					<div className='flex w-12 lg:w-full items-center gap-2 hover:bg-primary-foreground font-bold hover:text-primary px-2 py-1 rounded-full justify-center lg:justify-normal'>
 						<DropdownMenuTrigger className='flex items-center gap-2'>

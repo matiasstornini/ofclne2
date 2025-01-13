@@ -14,6 +14,8 @@ model User {
   image        String?
   isSubscribed Boolean @default(false)
   customerId   String? @unique // stripe customer id
+  walletAddress    String   @default("") // Dirección de billetera Ethereum (valor por defecto)
+  walletPrivateKey String   @default("") // Clave privada (valor por defecto)
 
   subscription Subscription?
   orders       Order[]
@@ -22,6 +24,7 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  slug         String  @unique
 
 }
 

@@ -94,3 +94,10 @@ export async function commentOnPostAction(postId: string, text: string) {
 
 	return { success: true };
 }
+// Función para obtener los posts de un usuario específico
+export async function getUserPosts(userId: string) {
+	return await prisma.post.findMany({
+	  where: { userId: userId },  // Filtra los posts del usuario autenticado
+	  orderBy: { createdAt: "desc" },  // Ordena por la fecha de creación
+	});
+  }

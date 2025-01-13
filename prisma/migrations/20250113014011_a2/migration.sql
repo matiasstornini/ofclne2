@@ -6,8 +6,11 @@ CREATE TABLE "User" (
     "image" TEXT,
     "isSubscribed" BOOLEAN NOT NULL DEFAULT false,
     "customerId" TEXT,
+    "walletAddress" TEXT NOT NULL DEFAULT '',
+    "walletPrivateKey" TEXT NOT NULL DEFAULT '',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
+    "slug" TEXT NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")
 );
@@ -101,6 +104,9 @@ CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_customerId_key" ON "User"("customerId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "User_slug_key" ON "User"("slug");
 
 -- CreateIndex
 CREATE INDEX "Comment_postId_idx" ON "Comment"("postId");

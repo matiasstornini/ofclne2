@@ -1,33 +1,32 @@
+// components/UserProfile.tsx
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import CoverImage from "./CoverImage";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import prisma from "@/db/prisma";
-import { getUserProfileAction } from "@/app/update-profile/actions";
+import { UserProfileProps } from "@/types"; // Asegúrate de importar correctamente el tipo de los props.
 
-const UserProfile = async () => {
-  const currentUser = await getUserProfileAction();
-
-  if (!currentUser) {
+const UserProfile = ({ user }: UserProfileProps) => {
+  if (!user) {
     return <p>No user found</p>;
   }
 
   return (
     <div className="flex flex-col">
-      <CoverImage adminName={currentUser.name || "User"} />
+      <CoverImage adminName={user.name || "User"} />
 
       <div className="flex flex-col p-4">
         <div className="flex flex-col md:flex-row gap-4 justify-between">
           <Avatar className="w-20 h-20 border-2 -mt-10">
             <AvatarImage
-              src={currentUser.image || "/user-placeholder.png"}
+              src={user.image || "/user-placeholder.png"}
               className="object-cover"
             />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
 
           <div className="flex">
-            {!currentUser.isSubscribed && (
+            {!user.isSubscribed && (
               <Button asChild className="rounded-full flex gap-10">
                 <Link href={"/pricing"}>
                   <span className="uppercase font-semibold tracking-wide">
@@ -37,7 +36,7 @@ const UserProfile = async () => {
               </Button>
             )}
 
-            {currentUser.isSubscribed && (
+            {user.isSubscribed && (
               <Button className="rounded-full flex gap-10" variant={"outline"}>
                 <span className="uppercase font-semibold tracking-wide">
                   Subscribed
@@ -48,7 +47,7 @@ const UserProfile = async () => {
         </div>
 
         <div className="flex flex-col mt-4">
-          <p className="text-lg font-semibold">{currentUser.name}</p>
+          <p className="text-lg font-semibold">{user.name}</p>
           <p className="text-sm mt-2 md:text-md">
             Discover daily tips and tricks for horse health and care, along with insights into my personal routine with my horses. Subscribe now to gain access to exclusive content and become part of the community.
           </p>
