@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Shirt, Home, LayoutDashboard, User } from "lucide-react";
+import { Shirt, Home, LayoutDashboard, User,MessageCircleDashed,Wallet } from "lucide-react";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -74,10 +74,17 @@ const SIDEBAR_LINKS = [
 					</Link>
 				)}
 					<Link
+						href={"/messages"}
+						className='flex w-12 lg:w-full items-center gap-2 hover:bg-primary-foreground font-bold hover:text-primary px-2 py-1 rounded-full justify-center lg:justify-normal'
+					>
+						<MessageCircleDashed className='w-6 h-6' />
+						<span className='hidden lg:block'>Messages</span>
+					</Link>
+					<Link
 						href={"/wallet"}
 						className='flex w-12 lg:w-full items-center gap-2 hover:bg-primary-foreground font-bold hover:text-primary px-2 py-1 rounded-full justify-center lg:justify-normal'
 					>
-						<LayoutDashboard className='w-6 h-6' />
+						<Wallet className='w-6 h-6' />
 						<span className='hidden lg:block'>Wallet</span>
 					</Link>
 				<DropdownMenu>

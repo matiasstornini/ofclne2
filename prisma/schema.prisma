@@ -12,6 +12,8 @@ model User {
   email        String  @unique
   name         String
   image        String?
+  description String?  // Nuevo campo agregado
+
   isSubscribed Boolean @default(false)
   customerId   String? @unique // stripe customer id
   walletAddress    String   @default("") // Dirección de billetera Ethereum (valor por defecto)
@@ -26,6 +28,20 @@ model User {
   updatedAt DateTime @updatedAt
   slug         String  @unique
 
+  messagesSent   Message[]  @relation("SentMessages")
+  messagesReceived Message[] @relation("ReceivedMessages")
+}
+
+model Message {
+  id          String   @id @default(cuid())
+  content     String
+  senderId    String
+  receiverId  String
+  sender      User     @relation("SentMessages", fields: [senderId], references: [id])
+  receiver    User     @relation("ReceivedMessages", fields: [receiverId], references: [id])
+  createdAt   DateTime @default(now())
+
+  @@index([senderId, receiverId])
 }
 
 model Post {

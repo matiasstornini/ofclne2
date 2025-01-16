@@ -63,9 +63,7 @@ const UserProfile = ({ user, isOwner }: UserProfilePropsWithOwnership) => {
         <div className="flex flex-col mt-4">
           <p className="text-lg font-semibold">{user.name}</p>
           <p className="text-sm mt-2 md:text-md">
-            Discover daily tips and tricks for horse health and care, along with
-            insights into my personal routine with my horses. Subscribe now to
-            gain access to exclusive content and become part of the community.
+            {user.description || "No description available"}
           </p>
         </div>
       </div>

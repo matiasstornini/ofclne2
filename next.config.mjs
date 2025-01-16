@@ -1,8 +1,29 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
 	images: {
-		remotePatterns: [{ hostname: "res.cloudinary.com" }],
+	  remotePatterns: [{ hostname: "res.cloudinary.com" }],
 	},
-};
-
-export default nextConfig;
+	experimental: {
+	  appDir: true,
+	},
+	async headers() {
+	  return [
+		{
+		  source: "/api/socket",
+		  headers: [
+			{
+			  key: "Access-Control-Allow-Origin",
+			  value: "*",
+			},
+			{
+			  key: "Cache-Control",
+			  value: "no-cache",
+			},
+		  ],
+		},
+	  ];
+	},
+  };
+  
+  export default nextConfig;
+  
